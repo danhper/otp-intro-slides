@@ -8,12 +8,12 @@ section
       i.fa.fa-github.fa-margin
       a(href="https://github.com/tuvistavie" target="_blank") tuvistavie
     h4
-      a(href="http://tuvistavie.com/slides/otp-intro" target="_blank") http://tuvistavie.com/slides/otp-intro
+      a(href="http://tuvistavie.com/slides/concurrency" target="_blank") http://tuvistavie.com/slides/concurrency
 
 section
-  h2 Today's topic
-  h3 OTP, scratching the surface
-  h4 Implementing a generic server
+  h3 Today's topic
+  h2 Concurrency basics
+  h4 Implementing a stack server
   br
   .fragment(data-fragment-index="2")
     h4 Target audience
@@ -21,20 +21,20 @@ section
       li Getting started with Elixir
       li No Erlang background
 
-section
-  section
-    h2 A word about OTP
-    h3 Open Telecom Platform
-    ul
-      li Framework written in Erlang
-      li Building blocks for concurrent apps
-      li Not specific to telecom
+//- section
+//-   section
+//-     h2 A word about OTP
+//-     h3 Open Telecom Platform
+//-     ul
+//-       li Framework written in Erlang
+//-       li Building blocks for concurrent apps
+//-       li Not specific to telecom
 
-  section
-    h2 To understand better
-    ul
-      li Let's build a <code>Stack</code> server
-      li And abstract the generic in a <code>GenServer</code>
+//-   section
+//-     h2 To understand better
+//-     ul
+//-       li Let's build a <code>Stack</code> server
+//-       li And abstract the generic in a <code>GenServer</code>
 
 section
   section
@@ -67,7 +67,7 @@ section
       li Elixir is immutable
       li For state, use <code>Agent</code>s
       li <code>Agent</code> is a wrapper around <code>GenServer</code>
-      li.fragment We are building a <code>GenServer</code>...
+      li.fragment We said no <code>GenServer</code>...
 
   section
     h3 Recursive function arguments
@@ -96,7 +96,7 @@ section
 
 section
   section
-    h2 Let's be generic
+    h2 Make it generic
     ul
       li A server has a state
       li A server uses a main loop
