@@ -1,0 +1,132 @@
+section
+  section
+    h1 Daniel Perez
+    h3
+      | CTO@
+      a(href="http://claudetech.com" target="_blank") ClaudeTech
+    h3
+      i.fa.fa-github.fa-margin
+      a(href="https://github.com/tuvistavie" target="_blank") tuvistavie
+    h4
+      a(href="http://tuvistavie.com/slides/otp-intro" target="_blank") http://tuvistavie.com/slides/otp-intro
+
+section
+  h2 Today's topic
+  h3 OTP, scratching the surface
+  h4 Implementing a generic server
+  br
+  .fragment(data-fragment-index="2")
+    h4 Target audience
+    ul
+      li Getting started with Elixir
+      li No Erlang background
+
+section
+  section
+    h2 A word about OTP
+    h3 Open Telecom Platform
+    ul
+      li Framework written in Erlang
+      li Building blocks for concurrent apps
+      li Not specific to telecom
+
+  section
+    h2 To understand better
+    ul
+      li Let's build a <code>Stack</code> server
+      li And abstract the generic in a <code>GenServer</code>
+
+section
+  section
+    h3 Language concurrency builtins
+    ul
+      li <code>spawn</code>
+      li <code>send</code>
+      li <code>receive</code>
+      li <code>monitor</code>
+      li <code>link</code>
+
+  section
+    h2 Spawn a process
+    pre: code.elixir
+      include ./snippets/simple_spawn.exs
+
+  section
+    h2 Communicate with a process
+    pre: code.elixir
+      include ./snippets/basic_send_receive.exs
+
+  section
+    h2 Building a server (kind of)
+    pre: code.elixir
+      include ./snippets/ping_server.exs
+
+  section
+    h2 We need state!
+    ul
+      li Elixir is immutable
+      li For state, use <code>Agent</code>s
+      li <code>Agent</code> is a wrapper around <code>GenServer</code>
+      li.fragment We are building a <code>GenServer</code>...
+
+  section
+    h3 Recursive function arguments
+    pre: code.elixir
+      | def loop(some_int) do
+      |   receive do
+      |     {:add, value} ->
+      |       loop(some_int + value)
+      |   end
+      | end
+
+  section
+    h3 Our <code>Stack</code> server
+    pre: code.elixir
+      include ./snippets/stack_server_1.exs
+
+  section
+    h3 Abstract <code>push</code>
+    pre: code.elixir
+      include ./snippets/stack_server_1_push.exs
+
+  section
+    h3 Make <code>pop</code> synchronous
+    pre: code.elixir
+      include ./snippets/stack_server_1_pop.exs
+
+section
+  section
+    h2 Let's be generic
+    ul
+      li A server has a state
+      li A server uses a main loop
+      li A server can handle sync/async requests
+
+  section
+    h3 Refactor our loop
+    pre: code.elixir
+      include ./snippets/gen_server_loop.exs
+  
+  section
+    h3 Extract logic of <code>push</code> and <code>pop</code>
+    pre: code.elixir
+      include ./snippets/stack_server_call_cast.exs
+
+  section
+    h3 Logic to start <code>ClumsyGenServer</code>
+    pre: code.elixir
+      include ./snippets/clumsy_gen_server.exs
+    
+  section
+    h3 Rewrite <code>push</code> and <code>pop</code>
+    pre: code.elixir
+      include ./snippets/stack_server_2.exs
+
+section
+  section
+    h2 Final words
+    ul
+      li OTP has plenty of useful abstractions
+      li It is mostly about abstracting the generic
+      li.fragment Take a look at what is available
+      li.fragment Use OTP, <strong>don't reinvent the wheel</strong>
